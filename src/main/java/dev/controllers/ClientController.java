@@ -45,6 +45,7 @@ public class ClientController {
 	
 
 
+
 	@GetMapping
 	public List<Client> getClients(@RequestParam Integer start, @RequestParam Integer size) {
 		return clientRepository.findAll(PageRequest.of(start, size)).toList();
@@ -61,6 +62,14 @@ public class ClientController {
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("uuid non valide");
 		}
+	}
+	
+	@GetMapping("nom/{nom}")
+	public List<?> getClientNom(@PathVariable String nom) {
+		
+		List<Client> client = clientRepository.findByNom(nom);
+		return client;
+		
 	}
 	
 	@PostMapping
